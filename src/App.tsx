@@ -1,8 +1,8 @@
 import "./App.css";
 import AddItems from "./AddItems";
-import ExpanseFilter from "./ExpanseFilter";
+import ExpenseFilter from "./ExpenseFilter";
 import { useState } from "react";
-import ExpanseList from "./ExpanseList";
+import ExpenseList from "./ExpenseList";
 
 function App() {
   const [category, setCategory] = useState("");
@@ -22,9 +22,9 @@ function App() {
           setExpense([...expanse, { ...exp, id: expanse.length + 1 }])
         }
       />
-      <ExpanseFilter onSelect={(category) => setCategory(category)} />
+      <ExpenseFilter onSelect={(category) => setCategory(category)} />
 
-      <ExpanseList
+      <ExpenseList
         expenses={expenses}
         onDelete={(id) => setExpense(expanse.filter((e) => e.id != id))}
       />
