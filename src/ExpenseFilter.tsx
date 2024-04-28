@@ -4,7 +4,7 @@ interface Props {
   onSelect: (category: string) => void;
 }
 
-const ExpanseFilter = ({ onSelect }: Props) => {
+const ExpenseFilter = ({ onSelect }: Props) => {
   return (
     <>
       <div className="mb-3">
@@ -14,7 +14,7 @@ const ExpanseFilter = ({ onSelect }: Props) => {
           aria-label="Default select example"
           onChange={(event) => onSelect(event.target.value)}
         >
-          <option defaultValue={""}></option>
+          <option value=""></option>
           {categories.map((category) => (
             <option key={category} value={category}>
               {category}
@@ -26,4 +26,4 @@ const ExpanseFilter = ({ onSelect }: Props) => {
   );
 };
 
-export default ExpanseFilter;
+export default ExpenseFilter;

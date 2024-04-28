@@ -2,19 +2,25 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+interface FormData {
+  description: string;
+  amount: number;
+  category: string;
+}
+
 interface Props {
-  onSubmit: (data: formData) => void;
+  onSubmit: (data: FormData) => void;
 }
 
 const schema = z.object({
   description: z.string().min(3, {
-    message: "Description should be at least three character long!",
+    message: "Description should be at least three characters long!",
   }),
-  amount: z.number({ invalid_type_error: "This field is required" }),
+  amount: z.number({ message: "This field is required" }),
   category: z.string(),
 });
 
-type formData = z.infer<typeof schema>;
+type FormValues = z.infer<typeof schema>;
 
 const AddItems = ({ onSubmit }: Props) => {
   const {
@@ -22,7 +28,7 @@ const AddItems = ({ onSubmit }: Props) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<formData>({ resolver: zodResolver(schema) });
+  } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   return (
     <>
@@ -69,15 +75,17 @@ const AddItems = ({ onSubmit }: Props) => {
             className="form-select"
             aria-label="Default select example"
           >
-            <option defaultValue={""}></option>
-            <option value="Groecries">Groecries</option>
+            <option value=""></option>
+            <option value="Groceries">Groceries</option>
             <option value="Utilities">Utilities</option>
             <option value="Entertainment">Entertainment</option>
           </select>
           {errors.category && <p>{errors.category.message}</p>}
         </div>
 
-        <button className="btn btn-primary">Add Items</button>
+        <button type="submit" className="btn btn-primary">
+          Add Items
+        </button>
       </form>
     </>
   );

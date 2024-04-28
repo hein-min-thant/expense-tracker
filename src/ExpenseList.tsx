@@ -10,7 +10,12 @@ interface Props {
   onDelete: (id: number) => void;
 }
 
-const ExpanseList = ({ expenses, onDelete }: Props) => {
+const ExpenseList = ({ expenses, onDelete }: Props) => {
+  const totalAmount = expenses.reduce(
+    (acc, expense) => acc + expense.amount,
+    0
+  );
+
   return (
     <table className="table table-bordered mb-3">
       <thead>
@@ -22,16 +27,15 @@ const ExpanseList = ({ expenses, onDelete }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {expenses.map((item) => (
-          <tr key={item.id}>
-            <td>{item.description}</td>
-            <td>{item.amount}</td>
-            <td>{item.category}</td>
-
+        {expenses.map((expense) => (
+          <tr key={expense.id}>
+            <td>{expense.description}</td>
+            <td>{expense.amount}</td>
+            <td>{expense.category}</td>
             <td>
               <button
                 className="btn btn-outline-danger"
-                onClick={() => onDelete(item.id)}
+                onClick={() => onDelete(expense.id)}
               >
                 Delete
               </button>
@@ -42,7 +46,7 @@ const ExpanseList = ({ expenses, onDelete }: Props) => {
       <tfoot>
         <tr>
           <td>Total</td>
-          <td>{expenses.reduce((acc, expense) => expense.amount + acc, 0)}</td>
+          <td>{totalAmount}</td>
           <td></td>
           <td></td>
         </tr>
@@ -51,4 +55,4 @@ const ExpanseList = ({ expenses, onDelete }: Props) => {
   );
 };
 
-export default ExpanseList;
+export default ExpenseList;
